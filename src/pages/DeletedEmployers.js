@@ -9,24 +9,15 @@ import { Grid } from "@material-ui/core";
 import { TablePagination } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const Homepage = () => {
+const DeletedEmployers = () => {
   // State in wich we add employees fetched from be
-  const [employees, setEmployees] = useState([]);
+  const [deletedEmployees, setDeletedEmployees] = useState([]);
   //page number for displaying employees
   const [page, setPage] = useState(0);
   //number of employees cards per page
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const history = useHistory();
 
-  const handleDelete = async (id) => {
-    try {
-      const { data } = await axiosInstance.delete(
-        `/employees/soft-delete/${id}`
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,29 +27,29 @@ const Homepage = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  //fetch Employees from BE
+  //fetch deleted Employees from BE
   useEffect(() => {
-    const getEmployees = async () => {
+    const getDeletedEmployees = async () => {
       try {
         const { data } = await axiosInstance(
           `/employees?page=${page + 1}&limit=${rowsPerPage}`
         );
         console.log(data);
-        setEmployees(data);
+        setDeletedEmployees(data);
       } catch (error) {
         console.log(error.response);
       }
     };
-    getEmployees();
+    getDeletedEmployees();
   }, [page, rowsPerPage]);
   return (
     <Grid container spacing={2}>
       <Grid container xs={{ marginTop: 10 }}>
-        <Button onClick={()=>history.push('/deleted-employees')}> Deleted Employees</Button>
-        <Button onClick={()=>history.push('/add-employer')}> Add Employer</Button>
+        <Button> Deleted Employees</Button>
+        <Button> Add Employer</Button>
       </Grid>
-      {employees.employees &&
-        employees?.employees.map((employer) => (
+      {deletedEmployees.employees &&
+        deletedEmployees?.employees.map((employer) => (
           <Grid item key={employer._id}>
             <Card sx={{ maxWidth: 345 }}>
               <CardContent>
@@ -83,16 +74,8 @@ const Homepage = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" variant="contained">
-                  Edit
-                </Button>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  onClick={() => handleDelete(employer._id)}
-                >
-                  Delete
-                </Button>
+                
+            
               </CardActions>
             </Card>
           </Grid>
@@ -100,7 +83,7 @@ const Homepage = () => {
       <Grid container>
         <TablePagination
           component="div"
-          count={employees.count || 10}
+          count={deletedEmployees.count || 10}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
@@ -111,4 +94,5 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default DeletedEmployers;
+
