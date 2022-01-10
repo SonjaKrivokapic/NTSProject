@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { SWRConfig } from 'swr'
+import { axiosInstance } from './utils/axios-instance';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <SWRConfig value={{ fetcher: (url) => axiosInstance(url).then((r) => r.data) }}>
     <App />
-  </React.StrictMode>,
+  </SWRConfig>,
   document.getElementById('root')
 );
 
