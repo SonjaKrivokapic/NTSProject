@@ -83,7 +83,7 @@ const Homepage = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" variant="contained">
+                <Button size="small" variant="contained" onClick={() => history.push(`/edit-employer/${employer._id}`)}>
                   Edit
                 </Button>
                 <Button

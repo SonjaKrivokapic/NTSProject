@@ -6,8 +6,11 @@ import { Grid, Typography } from "@material-ui/core";
 import TextfieldWrapper from "../components/TextFieldWrapper";
 import DateTextFieldWrapper from "../components/DateTextFieldWrapper";
 import ButtonWrapper from "../components/ButtonWrapper";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-const AddEmployer = () => {
+const EditEmployer = () => {
+    const {id} = useParams()
+    console.log(id)
   const initialEmployerState = {
     name: "",
     email: "",
@@ -33,7 +36,7 @@ const AddEmployer = () => {
     homeAddress: Yup.object().shape({
       city: Yup.string().required("Required"),
 
-      ZIPCode: Yup.string().matches(/^[0-9]{5}$/, 'Must be exactly 5 digits'),
+      ZIPCode: Yup.string().required("Required"),
       addressLine1: Yup.string().required("Required"),
       addressLine2: Yup.string().required("Required"),
     }),
@@ -138,4 +141,4 @@ const AddEmployer = () => {
   );
 };
 
-export default AddEmployer;
+export default EditEmployer;

@@ -12,9 +12,9 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const DeletedEmployers = () => {
   // State in wich we add employees fetched from be
   const [deletedEmployees, setDeletedEmployees] = useState([]);
-  //page number for displaying employees
+  //page number for displaying employees 
   const [page, setPage] = useState(0);
-  //number of employees cards per page
+  //number of employees cards per page 
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const history = useHistory();
 
@@ -24,15 +24,16 @@ const DeletedEmployers = () => {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(event.target.value, 2)); 
     setPage(0);
+    
   };
   //fetch deleted Employees from BE
   useEffect(() => {
     const getDeletedEmployees = async () => {
       try {
         const { data } = await axiosInstance(
-          `/employees?page=${page + 1}&limit=${rowsPerPage}`
+          `/employees/deleted?page=${page + 1}&limit=${rowsPerPage}`
         );
         console.log(data);
         setDeletedEmployees(data);
@@ -45,8 +46,8 @@ const DeletedEmployers = () => {
   return (
     <Grid container spacing={2}>
       <Grid container xs={{ marginTop: 10 }}>
-        <Button> Deleted Employees</Button>
-        <Button> Add Employer</Button>
+        <Button onClick={()=>history.push('/')}> Employees</Button>
+        <Button onClick={()=>history.push('/add-employer')}> Add Employees</Button>
       </Grid>
       {deletedEmployees.employees &&
         deletedEmployees?.employees.map((employer) => (

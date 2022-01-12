@@ -4,19 +4,23 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddEmployer from "./pages/AddEmployer";
 import Homepage from "./pages/Homepage";
 import DeletedEmployers from "./pages/DeletedEmployers";
+import EditEmployer from "./pages/EditEmployer";
 
 function App() {
   return (
     <Router>
-      <main className="py-3">
+      
         <Container>
           <Route path="/" component={Homepage} exact />
-
+          {/* Display Paginated list of Employees */}
           <Route path="/deleted-employees" component={DeletedEmployers} exact />
+          {/* Deleted Employees(On different page list ) */}
           <Route path="/add-employer" component={AddEmployer} exact />
-          <Route path="/edit-employer" component={DeletedEmployers} exact />
+          {/* Add Employee */}
+          <Route path="/edit-employer/:id" component={EditEmployer} exact />
+          {/* Update Employee */}
         </Container>
-      </main>
+      
     </Router>
   );
 }
