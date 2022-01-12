@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import { useField, useFormikContext } from "formik";
 
+//Formik input wrapper
 const TextfieldWrapper = ({ name, value, ...otherProps }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
